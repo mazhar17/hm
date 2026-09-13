@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+const url='http://localhost:5173/api/records';
+const auth={Cookie:'__sites_local_auth=1'};
+const request=(opts={})=>fetch(url,{signal:AbortSignal.timeout(20000),...opts});
+assert.equal((await request()).status,401,'Anonymous records are rejected');
+const loaded=await request({headers:auth});assert.equal(loaded.status,200);
+const {records,revision}=await loaded.json();assert.ok(revision>0,'The UI-created record was persisted');
+const put=(body,extra={})=>request({method:'PUT',headers:{...auth,'Content-Type':'application/json',...extra},body:JSON.stringify(body)});
+assert.equal((await put({records:{students:'bad'},revision})).status,400,'Invalid records are rejected');
+assert.equal((await put({records,revision:revision-1})).status,409,'Stale saves cannot overwrite the register');
+assert.equal((await put({records,revision},{Origin:'https://example.invalid'})).status,403,'Cross-origin writes are rejected');
+const after=await (await request({headers:auth})).json();assert.deepEqual(after.records,records);assert.equal(after.revision,revision);
+console.log('API checks passed: authentication, durable readback, input validation, stale revision, origin, unchanged data.');
