@@ -9,3 +9,5 @@ The supplied metadata identifies quran-meta (Tanzil-derived) as its source. The 
 Hifz Companion’s source archive identifies its application as © 2026, CC BY-NC-ND 4.0. Hifz Mentor’s teaching interface, lesson record model, and server routes are newly authored for this project; the original Hifz Companion application code is not included.
 
 Frameworks and installed libraries retain their respective upstream licenses. The bundled Sites build plugin includes its own license in `build/`.
+
+Text view uses Quran.com API v4 Uthmani Arabic text (6,236 ayahs), downloaded 2026-09-13 from https://api.quran.com/api/v4/quran/verses/uthmani and split by the existing Madinah page metadata without altering the text. Amiri Quran font extracted from the supplied Hifz Companion index.html. Highlights are separate annotations.

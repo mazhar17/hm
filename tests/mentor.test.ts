@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import fs from "node:fs";
 import {categories,lessonMessage,recordSchema} from "../lib/mentor.ts";
 import type {Records} from "../lib/mentor.ts";
 
@@ -10,3 +11,18 @@ test("bad ranges and marks outside the lesson cannot be imported",()=>{for(const
 test("duplicate and orphan lesson records cannot be imported",()=>{const r=structuredClone(fixture);r.lessons.push(r.lessons[0]);assert.equal(recordSchema.safeParse(r).success,false);r.lessons.pop();r.lessons[0].studentId="missing";assert.equal(recordSchema.safeParse(r).success,false)});
 test("rechecking retains the original correction and adds its resolution",()=>{const r=structuredClone(fixture);r.lessons[0].marks[0].resolved=true;assert.equal(recordSchema.parse(r).lessons[0].marks[0].note,"Slow down here");assert.match(lessonMessage(r.lessons[0]),/Correct on recheck/)});
 test("reference-only notes are distinct from marked image positions",()=>{const r=structuredClone(fixture);r.lessons[0].marks[0].location="reference";assert.equal(recordSchema.parse(r).lessons[0].marks[0].location,"reference")});
+test("yellow text and area highlights survive save and backup round trips",()=>{
+ const r=structuredClone(fixture),base=r.lessons[0].marks[0];
+ r.lessons[0].marks=[{...base,location:"text",verseKey:"67:4",wordStart:1,wordEnd:3,selectedText:"ثُمَّ ٱرْجِعِ ٱلْبَصَرَ"},{...base,id:"area",location:"area",x:.1,y:.2,width:.3,height:.05}];
+ assert.deepEqual(recordSchema.parse(JSON.parse(JSON.stringify(r))),r);
+ assert.ok(lessonMessage(r.lessons[0]).includes("ثُمَّ ٱرْجِعِ ٱلْبَصَرَ"));
+ r.lessons[0].marks[0].wordEnd=0;assert.equal(recordSchema.safeParse(r).success,false);
+ r.lessons[0].marks.shift();r.lessons[0].marks[0].width=1;assert.equal(recordSchema.safeParse(r).success,false);
+});
+test("all 604 text pages cover every ayah once in Quran order",()=>{
+ const meta=JSON.parse(fs.readFileSync('public/quran/metadata.json','utf8'));
+ const seen:string[]=[];
+ for(const p of meta.pages){const verses=JSON.parse(fs.readFileSync(`public/quran/text/${p[0]}.json`,'utf8'));assert.equal(verses[0].key,`${p[1]}:${p[2]}`);assert.equal(verses.at(-1).key,`${p[3]}:${p[4]}`);for(const v of verses){assert.ok(v.text.trim());seen.push(v.key)}}
+ assert.equal(seen.length,6236);assert.equal(new Set(seen).size,6236);
+ const expected=meta.surahs.flatMap((s:number[])=>Array.from({length:s[4]},(_,i)=>`${s[0]}:${i+1}`));assert.deepEqual(seen,expected);
+});

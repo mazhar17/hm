@@ -37,3 +37,10 @@ WhatsApp opens a message for the Ustad to review and send. It does not send mess
 This release supports page-range lessons, with optional exact ayah references on corrections. Full recitation audio recording, automated recitation assessment, institutional administration, and direct import into the separate Hifz Companion app are not implemented.
 
 See `ATTRIBUTION.md` for the provenance of the supplied Quran assets.
+
+## Text and Mushaf lesson reader
+
+Text view bundles all 6,236 Uthmani ayahs across 604 pages. Tap a word, select a phrase within one ayah, or use Mark ayah to create a yellow correction highlight. Mushaf view supports full-page fit, zoom, focus view, yellow rectangular highlights, and existing point marks. Drag one rectangle per printed line; image coordinates remain normalized when resized. Text highlights remain in Text view and are linked from Mushaf view rather than guessing their positions on the image.
+
+Highlights retain their mistake category, ayah reference, selected Arabic text, teacher notes, and recheck status. Backup, WhatsApp text, PDF, and PNG exports include the applicable highlights. Text excerpts are appended below the Mushaf in PNG and included separately in PDF.
+
