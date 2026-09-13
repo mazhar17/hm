@@ -44,3 +44,10 @@ Text view bundles all 6,236 Uthmani ayahs across 604 pages. Tap a word, select a
 
 Highlights retain their mistake category, ayah reference, selected Arabic text, teacher notes, and recheck status. Backup, WhatsApp text, PDF, and PNG exports include the applicable highlights. Text excerpts are appended below the Mushaf in PNG and included separately in PDF.
 
+
+## Language and lesson setup
+
+On first use, a language prompt offers English (default) and Bengali. The device-local preference is stored separately from student records and can be changed in the header at any time. Arabic Quran text and entered names/notes are not translated. Interface labels and shared lesson messages support both languages.
+
+The simplified lesson form offers a native calendar date picker, Sabaq/Sabqi/Manzil/Test, and a page range. The optional surah shortcut is collapsed. The selected date and Test type are preserved in history, backups, and lesson reports.
+

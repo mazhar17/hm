@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import fs from "node:fs";
+import ts from "typescript";
+import {bengali,translate} from "../lib/translations.ts";
 import {categories,lessonMessage,recordSchema} from "../lib/mentor.ts";
 import type {Records} from "../lib/mentor.ts";
 
@@ -25,4 +27,21 @@ test("all 604 text pages cover every ayah once in Quran order",()=>{
  for(const p of meta.pages){const verses=JSON.parse(fs.readFileSync(`public/quran/text/${p[0]}.json`,'utf8'));assert.equal(verses[0].key,`${p[1]}:${p[2]}`);assert.equal(verses.at(-1).key,`${p[3]}:${p[4]}`);for(const v of verses){assert.ok(v.text.trim());seen.push(v.key)}}
  assert.equal(seen.length,6236);assert.equal(new Set(seen).size,6236);
  const expected=meta.surahs.flatMap((s:number[])=>Array.from({length:s[4]},(_,i)=>`${s[0]}:${i+1}`));assert.deepEqual(seen,expected);
+});
+test("a dated test retains its type and date in saved and shared records",()=>{
+ const r=structuredClone(fixture);r.lessons[0].type="Test";r.lessons[0].date="2026-08-20";
+ const saved=recordSchema.parse(JSON.parse(JSON.stringify(r))).lessons[0];
+ assert.equal(saved.type,"Test");assert.equal(saved.date,"2026-08-20");
+ assert.match(lessonMessage(saved),/Test/);assert.match(lessonMessage(saved),/2026-08-20/);
+ const bn=lessonMessage(saved,r.teacher,"bn");assert.match(bn,/পরীক্ষা/);assert.match(bn,/তাজবিদ/);assert.match(bn,/Student A/);assert.match(bn,/2026-08-20/);assert.ok(!bn.includes("Private background"));
+});
+test("English stays the default and Bengali labels preserve stored enum values",()=>{
+ assert.equal(translate("Test","en"),"Test");assert.equal(translate("Test","bn"),"পরীক্ষা");assert.equal(translate("Student A","bn"),"Student A");
+ const page=fs.readFileSync('app/page.tsx','utf8');assert.match(page,/<option value="Test">\{t\("Test"\)\}/);assert.match(page,/<option value="Passed">\{t\("Passed"\)\}/);assert.match(page,/name="date" type="date" required/);
+});
+test("every static translated interface string has a Bengali translation",()=>{
+ for(const file of ['app/page.tsx','components/lesson-reader.tsx']){
+  const source=ts.createSourceFile(file,fs.readFileSync(file,'utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
+  const visit=(node:ts.Node)=>{if(ts.isCallExpression(node)&&ts.isIdentifier(node.expression)&&node.expression.text==='t'&&node.arguments[0]&&ts.isStringLiteral(node.arguments[0])){const key=node.arguments[0].text.trim();if(/[A-Za-z]/.test(key))assert.ok(bengali[key],`Missing Bengali: ${key}`)}ts.forEachChild(node,visit)};visit(source);
+ }
 });
