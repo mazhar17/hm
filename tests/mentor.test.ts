@@ -37,7 +37,7 @@ test("a dated test retains its type and date in saved and shared records",()=>{
 });
 test("English stays the default and Bengali labels preserve stored enum values",()=>{
  assert.equal(translate("Test","en"),"Test");assert.equal(translate("Test","bn"),"পরীক্ষা");assert.equal(translate("Student A","bn"),"Student A");
- const page=fs.readFileSync('app/page.tsx','utf8');assert.match(page,/<option value="Test">\{t\("Test"\)\}/);assert.match(page,/<option value="Passed">\{t\("Passed"\)\}/);assert.match(page,/name="date" type="date" required/);
+ const page=fs.readFileSync('app/page.tsx','utf8');assert.match(page,/<option value="Passed">\{t\("Passed"\)\}/);assert.match(page,/name="date" type="date" required/);
 });
 test("every static translated interface string has a Bengali translation",()=>{
  for(const file of ['app/page.tsx','components/lesson-reader.tsx']){

@@ -49,5 +49,5 @@ Highlights retain their mistake category, ayah reference, selected Arabic text, 
 
 On first use, a language prompt offers English (default) and Bengali. The device-local preference is stored separately from student records and can be changed in the header at any time. Arabic Quran text and entered names/notes are not translated. Interface labels and shared lesson messages support both languages.
 
-The simplified lesson form offers a native calendar date picker, Sabaq/Sabqi/Manzil/Test, and a page range. The optional surah shortcut is collapsed. The selected date and Test type are preserved in history, backups, and lesson reports.
+The lesson setup asks only for the date after selecting a student. Completed lessons and the sharing dialog include Start new lesson, returning to student selection while preserving the finished record. Existing lesson categories remain compatible with saved records.
 
