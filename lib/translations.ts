@@ -1,5 +1,6 @@
 export type Language="en"|"bn";
-export const bengali:Record<string,string>={
+export const bengali:Record<string,string>={"Language":"ভাষা",
+"Surah (optional)":"সূরা (ঐচ্ছিক)","Use the default lesson page":"ডিফল্ট পাঠের পৃষ্ঠা ব্যবহার করুন","Choose a surah to open its first Mushaf page. You can turn pages during the lesson.":"সূরা বাছলে তার প্রথম মুসহাফ পৃষ্ঠা খুলবে। পাঠের সময় পৃষ্ঠা পরিবর্তন করতে পারবেন।",
 "HIFZ MENTOR · LESSON RECORD":"হিফজ মেন্টর · পাঠের রেকর্ড","Mushaf pages":"মুসহাফের পৃষ্ঠা","Outcome":"ফলাফল","self-corrected":"নিজেই সংশোধন করেছে","No mistakes marked.":"কোনো ভুল চিহ্নিত হয়নি।","Feedback":"মন্তব্য","Next lesson":"পরবর্তী পাঠ","Ustad":"উস্তাদ",
 "Hifz Mentor":"হিফজ মেন্টর","HM":"HM","English":"English",
 "Students":"শিক্ষার্থী","Take lesson":"পাঠ নিন","Lesson history":"পাঠের ইতিহাস","Settings":"সেটিংস","Workspace":"কর্মক্ষেত্র","THE USTAD’S WORKSPACE":"উস্তাদের কর্মক্ষেত্র","TEACH & GUIDE":"শিক্ষা ও দিকনির্দেশনা","Every correction is a step":"প্রতিটি সংশোধন একটি পদক্ষেপ","toward confident recitation.":"আত্মবিশ্বাসী তিলাওয়াতের পথে।","A little guidance":"সংক্ষিপ্ত নির্দেশিকা","Your teaching desk":"আপনার শিক্ষাদানের স্থান","Ustad workspace":"উস্তাদের কর্মক্ষেত্র","Interface language":"ইন্টারফেসের ভাষা",
@@ -24,3 +25,5 @@ export function translate(text:string|undefined,lang:Language):string{
  const image=key.match(/^Marked page (\d+) downloaded\. The PDF includes all marked pages\.$/);if(image)return `চিহ্নিত পৃষ্ঠা ${image[1]} ডাউনলোড হয়েছে। PDF-এ সব চিহ্নিত পৃষ্ঠা আছে।`;
  return text;
 }
+
+
