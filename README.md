@@ -51,3 +51,11 @@ On first use, a language prompt offers English (default) and Bengali. The device
 
 The lesson setup asks only for the date after selecting a student. Completed lessons and the sharing dialog include Start new lesson, returning to student selection while preserving the finished record. Existing lesson categories remain compatible with saved records.
 
+## Lesson flow updates
+
+- Take lesson is decluttered: the Text/Mushaf switch sits at the top of the reader, with page, surah, zoom and focus controls in one compact row. Helper sentences, the reader footer and the full-ayah Translation panel were removed. Word-by-word meanings stay available in Text view, with the source shown beneath the text.
+- Finish lesson now saves and copies the lesson message to the clipboard, then opens the share dialog with Copy message as the main action. WhatsApp is still available there but no longer opens automatically.
+- Lessons record `startedAt` and `completedAt` times. Lesson history shows the time under the date (lessons saved before this update have no time).
+- The left side panel scrolls when the window is short.
+- Word-by-word sources are listed in Settings → Sources & credits and in `ATTRIBUTION.md`.
+

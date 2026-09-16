@@ -1,6 +1,15 @@
 # Hifz Mentor asset attribution
 
-Word-by-word English and Bengali glosses are supplied by Quran.com / Quran Foundation through its API v4, using the requested word language. These glosses are separate from the Saheeh International and Sheikh Mujibur Rahman full-ayah translations. Arabic word text is checked against the displayed verse before aligning a gloss. Source: https://api-docs.quran.foundation/ and https://quran.com/.
+## Word-by-word meanings
+
+Word-by-word English and Bengali glosses in Text view are loaded at runtime from the Quran.com API v4 (Quran Foundation), `verses/by_page` with `words=true` and the selected word language. Arabic word text is checked against the displayed verse before aligning a gloss; if it does not match, no gloss is shown.
+
+- English word-by-word translation — Quranic Universal Library (QUL) resource 92: https://qul.tarteel.ai/resources/translation/92
+- Bengali word-by-word translation — QUL resource 94: https://qul.tarteel.ai/resources/translation/94
+- The QUL credits page (https://qul.tarteel.ai/credits) credits QuranWBW.com (https://quranwbw.com/) for providing word-by-word translations in multiple languages. The API response itself does not name a translator for individual glosses.
+- API documentation: https://api-docs.quran.foundation/ · Quran.com: https://quran.com/
+
+The full-ayah translation panel (Saheeh International / Sheikh Mujibur Rahman) has been removed from the lesson reader.
 
 The 604 unmodified Madinah Mushaf page images and Quran metadata in `public/quran/` were extracted from the user-supplied Hifz Companion archive (`hc.zip`).
 
